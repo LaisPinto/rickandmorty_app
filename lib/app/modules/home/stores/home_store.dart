@@ -9,13 +9,13 @@ part 'home_store.g.dart';
 class HomeStore = BaseHomeStore with _$HomeStore;
 
 abstract class BaseHomeStore with Store {
-  HomeServiseInterface characterServiseInterface = HomeService();
+  HomeServiseInterface characterServiceInterface = HomeService();
 
   @observable
   CharacterModel? characterModel;
 
   @observable
-  List<CharacterModel?> characterModelObservable = ObservableList();
+  List<CharacterModel>? characterModelObservable;
 
   @observable
   bool isHomeLoading = false;
@@ -24,7 +24,7 @@ abstract class BaseHomeStore with Store {
   Future<void> getCharacter() async {
     isHomeLoading = false;
     try {
-      characterModelObservable = await characterServiseInterface.getCharacter();
+      characterModelObservable = await characterServiceInterface.getCharacter();
     } catch (error) {
       rethrow;
     } finally {

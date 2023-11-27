@@ -29,13 +29,13 @@ mixin _$HomeStore on BaseHomeStore, Store {
       Atom(name: 'BaseHomeStore.characterModelObservable', context: context);
 
   @override
-  List<CharacterModel?> get characterModelObservable {
+  List<CharacterModel>? get characterModelObservable {
     _$characterModelObservableAtom.reportRead();
     return super.characterModelObservable;
   }
 
   @override
-  set characterModelObservable(List<CharacterModel?> value) {
+  set characterModelObservable(List<CharacterModel>? value) {
     _$characterModelObservableAtom
         .reportWrite(value, super.characterModelObservable, () {
       super.characterModelObservable = value;

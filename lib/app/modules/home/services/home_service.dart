@@ -5,7 +5,7 @@ import 'package:rm_app/app/modules/home/services/home_model_header.dart';
 
 class HomeService implements HomeServiseInterface {
   @override
-  Future<List<CharacterModel?>> getCharacter() async {
+  Future<List<CharacterModel>> getCharacter() async {
     String url = AppConstant.homeURL;
     try {
       final response = await Network.internal().get(
