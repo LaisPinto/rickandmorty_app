@@ -2,8 +2,9 @@ import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:rm_app/app/modules/home/pages/home_page.dart';
 import 'package:rm_app/app/modules/login/stores/login_store.dart';
+
+import '../../home/_export_home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

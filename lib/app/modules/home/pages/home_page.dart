@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:rm_app/app/modules/home/_export_home.dart';
-import 'package:rm_app/app/modules/home/stores/home_store.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,87 +11,61 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late HomeStore _homeStore;
-  late ScrollController _controller;
 
   Widget _listGrid() {
-    return SizedBox(
-      height: 100.0,
-      child: ListView.builder(
-        controller: _controller,
-        itemCount: _homeStore.characterModelObservable!.length,
-        itemBuilder: (context, index) {
-          CharacterModel? characterModel = _homeStore.characterModelObservable!.elementAt(index);
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.blueGrey.withOpacity(0.05),
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0),
-                      child: CircleAvatar(
-                        radius: 30,
-                        backgroundImage: NetworkImage(
-                          _homeStore.characterModelObservable!.elementAt(index).image,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 10.0),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      characterModel.name,
-                                      style: const TextStyle(
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.blue,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ],
+    return Observer(
+      builder: (context) {
+        return GridView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: 10,
+            childAspectRatio: 0.87,
+            crossAxisSpacing: 10,
+          ),
+          itemCount: _homeStore.characterModelObservable.length,
+          itemBuilder: (context, index) {
+            return GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailsPage(id: index),
                 ),
-              ],
-            ),
-          );
-        },
-      ),
+              ),
+              child: Card(
+                  child: Column(
+                children: [
+                  FadeInImage(
+                    placeholder: const AssetImage('assets/portal.gif'),
+                    image: NetworkImage(
+                      _homeStore.characterModelObservable.elementAt(index)!.image,
+                    ),
+                  ),
+                  Text(
+                    _homeStore.characterModelObservable.elementAt(index)!.name,
+                  ),
+                ],
+              )),
+            );
+          },
+        );
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text("MERDAAAA: ${_homeStore.characterModelObservable!.length}"),
-            //_listGrid(),
-          ],
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text(
+          "Rick and Morty",
+          style: TextStyle(color: Colors.green),
+          textAlign: TextAlign.center,
         ),
       ),
+      body: _listGrid(),
     );
   }
 
@@ -99,30 +73,16 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     _initPage();
-    _controller = ScrollController();
-    _controller.addListener(_scrollListener);
   }
 
-  void _initPage() {
+  Future<void> _initPage() async {
     _homeStore = HomeStore();
-    _homeStore.getCharacter();
+    await _homeStore.getCharacter();
   }
 
-  _scrollListener() {
-    if (_controller.offset >= _controller.position.maxScrollExtent && !_controller.position.outOfRange) {
-      setState(() {
-        //you can do anything here
-      });
-    }
-    if (_controller.offset <= _controller.position.minScrollExtent && !_controller.position.outOfRange) {
-      setState(() {
-        //you can do anything here
-      });
-    }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  //
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  // }
 }

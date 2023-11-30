@@ -19,4 +19,9 @@ class CharacterModel {
         status: map['status'],
         species: map['species'],
       );
+
+  @override
+  String toString() {
+    return 'CharacterModel{id: $id, name: $name, image: $image, status: $status, species: $species}';
+  }
 }

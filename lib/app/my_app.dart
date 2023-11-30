@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:asuka/asuka.dart';
-import 'package:rm_app/app/modules/home/pages/home_page.dart';
+import 'package:rm_app/app/modules/home/_export_home.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

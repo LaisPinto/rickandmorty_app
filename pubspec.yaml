@@ -37,6 +37,7 @@ flutter:
     - assets/translations/
     - assets/RickAndMorty.png
     - assets/fundo.jpg
+    - assets/portal.gif
 
   # fonts:
   #   - family: Schyler

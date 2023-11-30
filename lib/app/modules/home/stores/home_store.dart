@@ -15,20 +15,22 @@ abstract class BaseHomeStore with Store {
   CharacterModel? characterModel;
 
   @observable
-  List<CharacterModel>? characterModelObservable;
+  List<CharacterModel?> characterModelObservable = ObservableList<CharacterModel?>.of([]);
 
   @observable
-  bool isHomeLoading = false;
+  bool isHomeLoading = true;
 
   @action
   Future<void> getCharacter() async {
-    isHomeLoading = false;
+    isHomeLoading = true;
     try {
       characterModelObservable = await characterServiceInterface.getCharacter();
+      print('Tamanho da lista: ${characterModelObservable.length}');
     } catch (error) {
+      print('Erro ao buscar personagens: $error');
       rethrow;
     } finally {
-      isHomeLoading = true;
+      isHomeLoading = false;
     }
   }
 }
