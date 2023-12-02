@@ -36,19 +36,20 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               child: Card(
+                  shape: Border.all(),
                   child: Column(
-                children: [
-                  FadeInImage(
-                    placeholder: const AssetImage('assets/portal.gif'),
-                    image: NetworkImage(
-                      _homeStore.characterModelObservable.elementAt(index)!.image,
-                    ),
-                  ),
-                  Text(
-                    _homeStore.characterModelObservable.elementAt(index)!.name,
-                  ),
-                ],
-              )),
+                    children: [
+                      FadeInImage(
+                        placeholder: const AssetImage('assets/portal.gif'),
+                        image: NetworkImage(
+                          _homeStore.characterModelObservable.elementAt(index)!.image,
+                        ),
+                      ),
+                      Text(
+                        _homeStore.characterModelObservable.elementAt(index)!.name,
+                      ),
+                    ],
+                  )),
             );
           },
         );
