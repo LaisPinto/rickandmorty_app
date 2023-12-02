@@ -5,5 +5,5 @@ abstract interface class LoginInterface {
     required LoginModel loginModel,
     required String username,
     required String password,
-});
+  });
 }

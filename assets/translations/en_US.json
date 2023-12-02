@@ -1,3 +1,14 @@
 {
-  "hello": "hello"
+  "Screens": {
+    "home": {
+      "title": "Rick and Morty"
+    },
+    "detail": {
+      "title": "Character",
+      "loading": "Loading...",
+      "name": "Name",
+      "status": "Status",
+      "species": "Specie"
+    }
+  }
 }

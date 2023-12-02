@@ -111,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                                           ),
                                           suffixIcon: IconButton(
                                             icon: Icon(
-                                              _loginStore.isPasswordVisible ? MdiIcons.eye : MdiIcons.eyeOff,
+                                              _loginStore.isPasswordVisible ? MdiIcons.eyeOff : MdiIcons.eye,
                                               color: Colors.green,
                                             ),
                                             onPressed: () {
@@ -182,6 +182,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _pushHome() {
+    print("Pushing to home page");
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -191,22 +192,30 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _loginButton() async {
+    print("Início do _loginButton()");
+
     bool isValid = await _loginStore.getLogin(
       username: _usernameController.text,
       password: _passwordController.text,
     );
+
+    print("Resultado do login: $isValid");
+
     if (isValid) {
-      _pushHome();
+      print("Login válido. Chamando _pushHome()");
       _loginSuccess();
+      _pushHome();
     } else {
+      print("Login inválido");
       _loginFail();
     }
+    print("Fim do _loginButton()");
   }
 
   @override
   void initState() {
-    _initPage();
     super.initState();
+    _initPage();
   }
 
   @override

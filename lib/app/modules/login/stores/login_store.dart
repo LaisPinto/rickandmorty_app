@@ -7,6 +7,7 @@ class LoginStore = BaseLoginStore with _$LoginStore;
 
 abstract class BaseLoginStore with Store {
   LoginInterface loginInterface = LoginService();
+
   BaseLoginStore();
 
   @observable
@@ -25,22 +26,39 @@ abstract class BaseLoginStore with Store {
   }) async {
     isLoading = true;
     try {
+      print("Iniciando o login para $username");
+
+      // Adicionando verificação de campos vazios
+      if (username.isEmpty || password.isEmpty) {
+        print("Nome de usuário ou senha vazios");
+        return false;
+      }
+
       loginModel = LoginModel(
         username: username,
         password: password,
       );
+
+      print("Chamando fetchLogin");
       loginModel = await loginInterface.fetchLogin(
         loginModel: loginModel!,
         username: username,
-        password: password);
-      if(loginModel != null) {
+        password: password,
+      );
+
+      print("Resultado do fetchLogin: $loginModel");
+
+      if (loginModel != null) {
         return true;
       }
+
       return false;
     } catch (error) {
+      print("Erro durante o login: $error");
       return false;
     } finally {
       isLoading = false;
+      print("Finalizando o login");
     }
   }
 }

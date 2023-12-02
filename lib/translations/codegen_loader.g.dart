@@ -15,10 +15,32 @@ class CodegenLoader extends AssetLoader{
   }
 
   static const Map<String,dynamic> en_US = {
-  "hello": "hello"
+  "Screens": {
+    "home": {
+      "title": "Rick and Morty"
+    },
+    "detail": {
+      "title": "Character",
+      "loading": "Loading...",
+      "name": "Name",
+      "status": "Status",
+      "species": "Specie"
+    }
+  }
 };
 static const Map<String,dynamic> pt_BR = {
-  "hello": "oiii"
+  "Screens": {
+    "home": {
+      "title": "Rick and Morty"
+    },
+    "detail": {
+      "title": "Character",
+      "loading": "Carregando...",
+      "name": "Nome",
+      "Status": "Status",
+      "Species": "Espécies"
+    }
+  }
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"en_US": en_US, "pt_BR": pt_BR};
 }

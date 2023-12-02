@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:rm_app/app/modules/home/_export_home.dart';
+import 'package:rm_app/translations/locale_keys.g.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -59,9 +61,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text(
-          "Rick and Morty",
-          style: TextStyle(color: Colors.green),
+        backgroundColor: Colors.black26,
+        title: Text(
+          LocaleKeys.Screens_home_title.tr(),
+          style: const TextStyle(color: Colors.green),
           textAlign: TextAlign.center,
         ),
       ),
@@ -80,9 +83,8 @@ class _HomePageState extends State<HomePage> {
     await _homeStore.getCharacter();
   }
 
-  //
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    super.dispose();
+  }
 }
