@@ -1,4 +1,3 @@
-import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -135,7 +134,7 @@ class _LoginPageState extends State<LoginPage> {
                                 width: double.maxFinite,
                                 child: FilledButton(
                                   onPressed: () async {
-                                    _loginButton();
+                                    _pushHome();
                                   },
                                   style: FilledButton.styleFrom(backgroundColor: Colors.blue),
                                   child: const Text(
@@ -173,14 +172,6 @@ class _LoginPageState extends State<LoginPage> {
     _passwordController.dispose();
   }
 
-  void _loginSuccess() {
-    AsukaSnackbar.success("Login efetuado com sucesso!!");
-  }
-
-  void _loginFail() {
-    AsukaSnackbar.info("Ocorreu algum erro!!");
-  }
-
   void _pushHome() {
     print("Pushing to home page");
     Navigator.pushReplacement(
@@ -189,27 +180,6 @@ class _LoginPageState extends State<LoginPage> {
         builder: (context) => const HomePage(),
       ),
     );
-  }
-
-  Future<void> _loginButton() async {
-    print("Início do _loginButton()");
-
-    bool isValid = await _loginStore.getLogin(
-      username: _usernameController.text,
-      password: _passwordController.text,
-    );
-
-    print("Resultado do login: $isValid");
-
-    if (isValid) {
-      print("Login válido. Chamando _pushHome()");
-      _loginSuccess();
-      _pushHome();
-    } else {
-      print("Login inválido");
-      _loginFail();
-    }
-    print("Fim do _loginButton()");
   }
 
   @override
